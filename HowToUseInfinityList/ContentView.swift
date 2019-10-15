@@ -9,8 +9,23 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var items = Array(1...30)
     var body: some View {
-        Text("Hello World")
+        NavigationView {
+            List {
+                ForEach(items, id: \.self) { item in
+                    Text("\(item)")
+                        .onAppear() {
+                            let last = self.items.last!
+                            if last == item {
+                                print("last item")
+                                self.items += last+1...last+30
+                            }
+                    }
+                }
+            .navigationBarTitle("Infinity List")
+            }
+        }
     }
 }
 
